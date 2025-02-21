@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Component
-@RequestMapping("/api/kafka/test")
+@RequestMapping("/api/kafka/")
 @Slf4j
 @RequiredArgsConstructor
 public class KafkaMessageController {
