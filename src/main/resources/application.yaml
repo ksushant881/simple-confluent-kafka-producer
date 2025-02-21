@@ -1,0 +1,38 @@
+server:
+  port: 7094
+
+spring:
+  kafka:
+    producer:
+#      bootstrap-servers: from confluent cloud client registration
+      client-id: simple-producer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.confluentproducer.server.serialization.KafkaJsonSchemaSerializerExtension
+      properties:
+#        spring.json.trusted.packages: package directory
+#        spring.json.value.default.type: if any default type
+        sasl.mechanism: PLAIN
+#        sasl.jaas.config: from confluent cloud client registration
+        security.protocol: SASL_SSL
+#        schema.registry.url: from confluent cloud schema registry
+#        basic.auth.credentials.source: USER_INFO
+#        basic.auth.user.info: from confluent cloud client registration
+        json.fail.invalid.schema: true
+        session.timeout.ms: 45000
+        auto.register.schemas: false
+        use.latest.version: true
+        latest.compatibility.strict: false
+
+sample:
+  kafka:
+    producer:
+      topics:
+        sampleTopic: ${sample.kafka.prefix}.sampleTopic.notifications
+    prefix: dev.v1
+
+logging:
+  level:
+    com.fasterxml.jackson: DEBUG
+    io.confluent.kafka.serializers: DEBUG
+    org.zalando.logbook: TRACE
+    reactor.netty.http.client: DEBUG
